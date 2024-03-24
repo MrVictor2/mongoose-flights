@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Flights</title>
+  </head>
+  <body>
+    <h1>All Flights</h1>
+    <ul>
+      <% flights.forEach(flight => { %>
+      <li>
+        <strong><%= flight.airline %></strong> - Flight No. <%=
+        flight.flightNumber %> - Departure: <%= new
+        Date(flight.departureDate).toLocaleString() %> - From: <%=
+        flight.departureAirport %> to <%= flight.arrivalAirport %> - Price: $<%=
+        flight.price %>
+      </li>
+      <% }); %>
+    </ul>
+    <a href="/new">Add Flight</a>
+  </body>
+</html>
