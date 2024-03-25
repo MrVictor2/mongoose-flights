@@ -1,16 +1,17 @@
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
-const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
+const flightsRouter = require('./routes/flights');
 const findFreePort = require('find-free-port');
 
 const app = express();
 
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/your_database', { useNewUrlParser: true, useUnifiedTopology: true });
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+// Require and configure dotenv to load environment variables from .env file
+require('dotenv').config();
+
+// Require the database connection
+require('./config/database');
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Use routes
 app.use('/', indexRouter);
+app.use('/flights', flightsRouter);
 
 // Error handler
 app.use(function(err, req, res, next) {

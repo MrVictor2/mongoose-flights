@@ -14,15 +14,19 @@
   </thead>
   <tbody>
     <% flights.forEach(function(flight) { %>
-      <tr>
-        <td><%= flight.airline %></td>
-        <td><%= flight.flightNumber %></td>
-        <td><%= flight.departureAirport %></td>
-        <td><%= flight.arrivalAirport %></td>
-        <td><%= new Date(flight.departureDate).toLocaleString() %></td>
-        <td>$<%= flight.price %></td>
-        <td><a href="/flights/<%= flight._id %>">DETAILS</a></td>
-      </tr>
+    <tr>
+      <td><%= flight.airline %></td>
+      <td><%= flight.flightNo %></td>
+      <!-- Update property name -->
+      <td><%= flight.airport %></td>
+      <!-- Update property name -->
+      <td><%= flight.destination %></td>
+      <!-- Update property name -->
+      <td><%= new Date(flight.departs).toLocaleString() %></td>
+      <!-- Update property name -->
+      <td>$<%= flight.price %></td>
+      <td><a href="/flights/<%= flight._id %>">DETAILS</a></td>
+    </tr>
     <% }); %>
   </tbody>
 </table>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flight Details</title>
+  </head>
+  <body>
+    <h1>Flight Details</h1>
+    <!-- Display flight details -->
+    <ul>
+      <li><strong>Airline:</strong> <%= flight.airline %></li>
+      <li><strong>Flight Number:</strong> <%= flight.flightNo %></li>
+      <li><strong>Airport:</strong> <%= flight.airport %></li>
+      <li>
+        <strong>Departure Date/Time:</strong> <%=
+        flight.departs.toLocaleString() %>
+      </li>
+      <li><strong>Price:</strong> $<%= flight.price %></li>
+    </ul>
+
+    <!-- Form to add a destination -->
+    <h2>Add Destination</h2>
+    <form action="/flights/<%= flight._id %>/destinations" method="POST">
+      <label for="airport">Airport:</label>
+      <select id="airport" name="airport">
+        <option value="AUS">AUS</option>
+        <option value="DFW">DFW</option>
+        <option value="DEN">DEN</option>
+        <option value="LAX">LAX</option>
+        <option value="SAN">SAN</option></select
+      ><br />
+      <label for="arrival">Arrival Date/Time:</label>
+      <input type="datetime-local" id="arrival" name="arrival" required /><br />
+      <button type="submit">Add Destination</button>
+    </form>
+
+    <!-- Display flight destinations -->
+    <h2>Destinations</h2>
+    <ul>
+      <% flight.destinations.forEach(function(destination) { %>
+      <li><strong>Airport:</strong> <%= destination.airport %></li>
+      <li>
+        <strong>Arrival Date/Time:</strong> <%=
+        destination.arrival.toLocaleString() %>
+      </li>
+      <% }); %>
+    </ul>
+
+    <h2>Create Ticket</h2>
+    <form action="/flights/<%= flight._id %>/tickets" method="POST">
+      <label for="seat">Seat:</label>
+      <input
+        type="text"
+        id="seat"
+        name="seat"
+        pattern="[A-F][1-9][0-9]?"
+        required
+      /><br />
+
+      <label for="price">Price:</label>
+      <input type="number" id="price" name="price" min="0" required /><br />
+
+      <input type="submit" value="Create Ticket" />
+    </form>
+    <br />
+    <!-- Existing flight details -->
+    <h2>Tickets:</h2>
+    <% if (tickets.length > 0) { %>
+    <ul>
+      <% tickets.forEach(function(ticket) { %>
+      <li>Seat: <%= ticket.seat %>, Price: $<%= ticket.price %></li>
+      <% }); %>
+    </ul>
+    <% } else { %>
+    <p>No tickets available for this flight.</p>
+    <% } %>
+    <br />
+
+    <!-- Back to Flights button -->
+    <a href="/flights">Back to Flights</a>
+  </body>
+</html>
